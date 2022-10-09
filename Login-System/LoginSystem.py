@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import *
 import os
+import random
+import requests
 
 class Main:
     def __init__(self, window):
@@ -105,7 +107,7 @@ class LoginPage:
             file1 = open(username1, "r")
             verify = file1.read().splitlines()
             if password1 in verify:
-                self.OTP()
+                self.OTP(verify)
             else:
                 self.password_not_recognised()
         else:
@@ -113,8 +115,8 @@ class LoginPage:
         self.username_login_entry.delete(0, END)
         self.password_login_entry.delete(0, END)
     
-    def OTP(self):
-        self.actual_OTP = 123345
+    def OTP(self, verify):
+        self.send_OTP(verify)
         self.OTP_window = Toplevel(self.window)
         self.OTP_window.title("OTP")
         self.OTP_window.geometry("320x350")
@@ -138,7 +140,17 @@ class LoginPage:
         else:
             self.password_not_recognised()
             
-        
+    def send_OTP(self, verify):
+        self.actual_OTP = str(random.randint(0,999999))
+        API = verify[2]
+        request_key = "https://maker.ifttt.com/trigger/trigger1/with/key/" + API
+
+        r = requests.post(request_key,
+                    params = {"value1": verify[0], "value2": self.actual_OTP})
+        if r.status_code == 200:
+            print("Alert Sent")
+        else:
+            print("Error")
 
     def login_sucess(self):
         self.login_success_screen = Toplevel(self.window)
