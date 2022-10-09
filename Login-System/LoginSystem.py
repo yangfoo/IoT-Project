@@ -141,7 +141,7 @@ class LoginPage:
             self.password_not_recognised()
             
     def send_OTP(self, verify):
-        self.actual_OTP = str(random.randint(0,999999))# I'm here bond
+        self.actual_OTP = str(random.randint(100000,999999))# I'm here bond
         encrypted_OTP = str(666)
         API = verify[2]
         request_key = "https://maker.ifttt.com/trigger/trigger1/with/key/" + API
