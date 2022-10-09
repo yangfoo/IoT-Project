@@ -1,0 +1,57 @@
+
+Default : Screen On, Camera Off, Light Off, Doors Closed
+If Motion == TRUE :
+	Screen On, Camera On, Light On	
+	
+On Screen:
+	Default: Login Screen (Typing one)
+	
+But if RFID got signal:
+	Ask "Is this your security Phrase "IloveNahida" ?" Yes/No
+	Yes -> already key in username 
+	No -> Go back to login Screen
+		
+After Login: OTP has been sent :
+	Yang OTP system(mt*)
+	
+	OTP is encrypted -> decrypt with program -> then get real OTP
+	
+	Door Open , Fireworks happen!!
+	
+	
+	
+
+	
+	Machine Learning:
+	Input: 
+	Class: Away, Towards 
+	Assumed Class: [Jumping, Running, Crouching, ]
+	
+	Telegram Message :
+	Daily report:
+	How many people approach in last 24Hrs (12am update)
+	
+	Short-Term Report:
+	- Someone at the door at [time], (prediction{example: They seem to be hiding from the rain}), here is a video of them
+	- Administrative Log [who entered at what time, if the user is known]
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
