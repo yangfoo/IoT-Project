@@ -138,7 +138,6 @@ class LoginPage:
         else:
             self.password_not_recognised()
             
-    def send_OTP():
         
 
     def login_sucess(self):
