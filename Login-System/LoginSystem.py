@@ -69,6 +69,7 @@ class RegisterPage:
         file.close()
 
         Label(self.window, text="Registration Success", fg="green", font=("calibri", 11)).pack()
+        self.window.destroy()
 
 class LoginPage:
     def __init__(self, window):
@@ -79,42 +80,67 @@ class LoginPage:
             width="300", height="2",font=("Calibri", 13)).pack(padx=20, pady=23 )
         Label(self.window, text="").pack()
 
-        global username_verify
-        global password_verify
-
-        username_verify = StringVar()
-        password_verify = StringVar()
-
-        global username_login_entry
-        global password_login_entry
+        self.username_verify = StringVar()
+        self.password_verify = StringVar()
 
         Label(self.window, text="Username",fg="black", bg="#c0ecc0").pack()
-        username_login_entry = Entry(self.window, textvariable=username_verify)
-        username_login_entry.pack(pady=5)
+        self.username_login_entry = Entry(self.window, textvariable=self.username_verify)
+        self.username_login_entry.pack(pady=5)
 
         Label(self.window, text="").pack()
         Label(self.window, text="Password",fg="black", bg="#c0ecc0").pack(pady=5)
 
-        password_login_entry = Entry(self.window, textvariable=password_verify, show='*').pack()
+        self.password_login_entry = Entry(self.window, textvariable=self.password_verify, show='*')
+        self.password_login_entry.pack(pady=5)
 
         Label(self.window, text="").pack()
-        Button(self.window, text="Login",width=10,fg="black" ,height=1, command=self.login_verify).pack()
+        Button(self.window, text="Send OTP",width=10,fg="black" ,height=1, command=self.login_verify).pack()
 
     def login_verify(self):
-        username1 = username_verify.get()
-        password1 = password_verify.get()
+        username1 = self.username_verify.get()
+        password1 = self.password_verify.get()
 
         list_of_files = os.listdir()
         if username1 in list_of_files:
             file1 = open(username1, "r")
             verify = file1.read().splitlines()
             if password1 in verify:
-                self.login_sucess()
+                self.OTP()
             else:
                 self.password_not_recognised()
         else:
             self.user_not_found()
+        self.username_login_entry.delete(0, END)
+        self.password_login_entry.delete(0, END)
     
+    def OTP(self):
+        self.actual_OTP = 123345
+        self.OTP_window = Toplevel(self.window)
+        self.OTP_window.title("OTP")
+        self.OTP_window.geometry("320x350")
+        Label(self.OTP_window,text="Please Enter OTP!",bg="#c0ecc0", fg="black",
+            width="300", height="2",font=("Calibri", 13)).pack(padx=20, pady=23 )
+        Label(self.OTP_window, text="").pack()
+
+        self.OTP_verify = StringVar()
+
+        Label(self.OTP_window, text="OTP",fg="black", bg="#c0ecc0").pack()
+        OTP_entry = Entry(self.OTP_window, textvariable=self.OTP_verify)
+        OTP_entry.pack(pady=5)
+
+        Label(self.OTP_window, text="").pack()
+        Button(self.OTP_window, text="Next",width=10,fg="black" ,height=1, command=self.verify_OTP).pack()
+    
+    def verify_OTP(self):
+        OTP1 = self.OTP_verify.get()
+        if OTP1 == str(self.actual_OTP):
+            self.login_sucess()
+        else:
+            self.password_not_recognised()
+            
+    def send_OTP():
+        
+
     def login_sucess(self):
         self.login_success_screen = Toplevel(self.window)
         self.login_success_screen.title("Success")
@@ -138,12 +164,15 @@ class LoginPage:
 
     def delete_login_success(self):
         self.login_success_screen.destroy()
+        self.OTP_window.destroy()
 
     def delete_password_not_recognised(self):
         self.password_not_recog_screen.destroy()
+        self.OTP_window.destroy()
 
     def delete_user_not_found_screen(self):
         self.user_not_found_screen.destroy()
+        
 
 def page():
     window = Tk()
