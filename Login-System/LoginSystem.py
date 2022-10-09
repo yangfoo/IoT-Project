@@ -141,12 +141,13 @@ class LoginPage:
             self.password_not_recognised()
             
     def send_OTP(self, verify):
-        self.actual_OTP = str(random.randint(0,999999))
+        self.actual_OTP = str(random.randint(0,999999))# I'm here bond
+        encrypted_OTP = str(666)
         API = verify[2]
         request_key = "https://maker.ifttt.com/trigger/trigger1/with/key/" + API
 
         r = requests.post(request_key,
-                    params = {"value1": verify[0], "value2": self.actual_OTP})
+                    params = {"value1": verify[0], "value2": encrypted_OTP})
         if r.status_code == 200:
             print("Alert Sent")
         else:
