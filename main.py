@@ -6,6 +6,13 @@ import random
 import requests
 
 if __name__ == "__main__":
-    window = Tk()
-    Main(window)
-    # LoginPage(window)
+    RFID = True
+    if RFID:
+        window = Tk()
+        LoginPageRIFD(window, 'jy')
+        window.mainloop()
+    else:
+        window = Tk()
+        Main(window)
+        window.mainloop()
+        # LoginPage(window)
