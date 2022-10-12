@@ -3,6 +3,7 @@ from tkinter import *
 import os
 import random
 import requests
+import math
 
 class Main:
     def __init__(self, window):
@@ -142,7 +143,7 @@ class LoginPage:
             
     def send_OTP(self, verify):
         self.actual_OTP = str(random.randint(100000,999999))# I'm here bond
-        encrypted_OTP = str(666)
+        encrypted_OTP = HybirdEncryption(self.actual_OTP)
         API = verify[2]
         request_key = "https://maker.ifttt.com/trigger/trigger1/with/key/" + API
 
@@ -191,6 +192,41 @@ def page():
     Main(window)
     window.mainloop()
 
+def convert(s):
+    # initialization of string to ""
+    new = ""
+    # traverse in the string
+    for x in s:
+        new += x
+    # return string
+    return new
+
+def CaesarEncryption(realText, step):
+	outText = []
+	cryptText = []
+	number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+	for eachLetter in realText:
+		if eachLetter in number:
+			index = number.index(eachLetter)
+			crypting = (index + step) % 10
+			cryptText.append(crypting)
+			newLetter = number[crypting]
+			outText.append(newLetter)  
+	return convert(outText)
+
+def MirrorEncryption(string):
+    translated = '' #cipher text is stored in this variable
+    i = len(string) - 1
+
+    while i >= 0:
+        translated = translated + string[i]
+        i = i - 1
+    return translated
+
+def HybirdEncryption(string, step = 3):
+    Encrypted1 = CaesarEncryption(string, step)
+    Encrypted2 = MirrorEncryption(Encrypted1)
+    return (Encrypted2)
 
 if __name__ == '__main__':
     page()
