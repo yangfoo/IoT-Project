@@ -13,12 +13,13 @@ class Main:
           width="300", height="2", font=("Calibri", 13)).pack(padx=20, pady=23 )
         Button(text="LOGIN", height="2", width="15", fg="#c0ecc0",command=self.login).pack(padx=1, pady=20)
         Button(text="REGISTER", height="2", width="15",fg="#D8BFD8", command=self.register).pack(padx=1, pady=5)
+        # self.window.mainloop()
 
     def register(self):
-        register_screen = RegisterPage(self.window)
+        RegisterPage(self.window)
 
     def login(self):
-        login_screen = LoginPage(self.window)
+        LoginPage(self.window)
         
     def show(self):
         self.hide_button = Button(self.lgn_frame, image=self.hide_image, command=self.hide, relief=FLAT,
@@ -60,6 +61,7 @@ class RegisterPage:
 
         Label(self.window, text="").pack()
         Button(self.window, text="Register", width=10, height=1, fg="black", command=self.register_user).pack()
+        self.window.mainloop()
     
     def register_user(self):
         username_info = self.username.get()
@@ -97,6 +99,7 @@ class LoginPage:
 
         Label(self.window, text="").pack()
         Button(self.window, text="Send OTP",width=10,fg="black" ,height=1, command=self.login_verify).pack()
+        # self.window.mainloop()
 
     def login_verify(self):
         username1 = self.username_verify.get()
