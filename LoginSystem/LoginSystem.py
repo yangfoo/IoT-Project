@@ -3,7 +3,6 @@ from tkinter import *
 import os
 import random
 import requests
-import math
 
 class Main:
     def __init__(self, window):
@@ -14,12 +13,13 @@ class Main:
           width="300", height="2", font=("Calibri", 13)).pack(padx=20, pady=23 )
         Button(text="LOGIN", height="2", width="15", fg="#c0ecc0",command=self.login).pack(padx=1, pady=20)
         Button(text="REGISTER", height="2", width="15",fg="#D8BFD8", command=self.register).pack(padx=1, pady=5)
+        # self.window.mainloop()
 
     def register(self):
-        register_screen = RegisterPage(self.window)
+        RegisterPage(self.window)
 
     def login(self):
-        login_screen = LoginPage(self.window)
+        LoginPage(self.window)
         
     def show(self):
         self.hide_button = Button(self.lgn_frame, image=self.hide_image, command=self.hide, relief=FLAT,
@@ -61,6 +61,7 @@ class RegisterPage:
 
         Label(self.window, text="").pack()
         Button(self.window, text="Register", width=10, height=1, fg="black", command=self.register_user).pack()
+        self.window.mainloop()
     
     def register_user(self):
         username_info = self.username.get()
@@ -98,6 +99,7 @@ class LoginPage:
 
         Label(self.window, text="").pack()
         Button(self.window, text="Send OTP",width=10,fg="black" ,height=1, command=self.login_verify).pack()
+        # self.window.mainloop()
 
     def login_verify(self):
         username1 = self.username_verify.get()
@@ -143,7 +145,7 @@ class LoginPage:
             
     def send_OTP(self, verify):
         self.actual_OTP = str(random.randint(100000,999999))# I'm here bond
-        encrypted_OTP = HybirdEncryption(self.actual_OTP)
+        encrypted_OTP = str(666)
         API = verify[2]
         request_key = "https://maker.ifttt.com/trigger/trigger1/with/key/" + API
 
@@ -192,41 +194,6 @@ def page():
     Main(window)
     window.mainloop()
 
-def convert(s):
-    # initialization of string to ""
-    new = ""
-    # traverse in the string
-    for x in s:
-        new += x
-    # return string
-    return new
-
-def CaesarEncryption(realText, step):
-	outText = []
-	cryptText = []
-	number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-	for eachLetter in realText:
-		if eachLetter in number:
-			index = number.index(eachLetter)
-			crypting = (index + step) % 10
-			cryptText.append(crypting)
-			newLetter = number[crypting]
-			outText.append(newLetter)  
-	return convert(outText)
-
-def MirrorEncryption(string):
-    translated = '' #cipher text is stored in this variable
-    i = len(string) - 1
-
-    while i >= 0:
-        translated = translated + string[i]
-        i = i - 1
-    return translated
-
-def HybirdEncryption(string, step = 3):
-    Encrypted1 = CaesarEncryption(string, step)
-    Encrypted2 = MirrorEncryption(Encrypted1)
-    return (Encrypted2)
 
 if __name__ == '__main__':
     page()
