@@ -9,7 +9,7 @@ from mfrc522 import SimpleMFRC522
 from time import sleep
 
 if __name__ == "__main__":
-    RFID = True
+    RFID = False
     if RFID:
         relay = 24
         GPIO.setmode(GPIO.BCM)
