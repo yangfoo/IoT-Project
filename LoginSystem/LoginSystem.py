@@ -61,10 +61,7 @@ class RegisterPage:
 
         Label(self.window, text="").pack()
         Button(self.window, text="Register", width=10, height=1, fg="black", command=self.register_user).pack()
-<<<<<<< Updated upstream
-=======
         # self.window.mainloop()
->>>>>>> Stashed changes
     
     def register_user(self):
         username_info = self.username.get()
@@ -147,11 +144,7 @@ class LoginPage:
             
     def send_OTP(self, verify):
         self.actual_OTP = str(random.randint(100000,999999))# I'm here bond
-<<<<<<< Updated upstream
-        encrypted_OTP = HybirdEncryption(self.actual_OTP)
-=======
         encrypted_OTP = self.HybirdEncryption(self.actual_OTP)
->>>>>>> Stashed changes
         API = verify[2]
         request_key = "https://maker.ifttt.com/trigger/trigger1/with/key/" + API
 
@@ -384,45 +377,6 @@ def page():
     Main(window)
     window.mainloop()
 
-<<<<<<< Updated upstream
-def convert(s):
-    # initialization of string to ""
-    new = ""
-    # traverse in the string
-    for x in s:
-        new += x
-    # return string
-    return new
-
-def CaesarEncryption(realText, step):
-	outText = []
-	cryptText = []
-	number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-	for eachLetter in realText:
-		if eachLetter in number:
-			index = number.index(eachLetter)
-			crypting = (index + step) % 10
-			cryptText.append(crypting)
-			newLetter = number[crypting]
-			outText.append(newLetter)  
-	return convert(outText)
-
-def MirrorEncryption(string):
-    translated = '' #cipher text is stored in this variable
-    i = len(string) - 1
-
-    while i >= 0:
-        translated = translated + string[i]
-        i = i - 1
-    return translated
-
-def HybirdEncryption(string, step = 3):
-    Encrypted1 = CaesarEncryption(string, step)
-    Encrypted2 = MirrorEncryption(Encrypted1)
-    return (Encrypted2)
-
-=======
->>>>>>> Stashed changes
 if __name__ == '__main__':
     page()
     # main_acc()
