@@ -27,10 +27,10 @@ if __name__ == "__main__":
                     
             if id in list_of_files:
                 file1 = open(id,'r')
-                username = file1.read()
-                print("Welcome " + username)
+                username = file1.read().splitlines()
+                print("Welcome " + username[0])
                 window = Tk()
-                LoginPageRIFD(window, 'username')
+                LoginPageRIFD(window, username[0])
                 window.mainloop()             
             else:
                 print("Wrong Tag!")

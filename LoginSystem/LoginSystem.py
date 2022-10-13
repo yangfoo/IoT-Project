@@ -4,6 +4,10 @@ import os
 import random
 import requests
 import math
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+from time import sleep
+from encrypt_decrypt import *
 
 class Main:
     def __init__(self, window):
@@ -136,7 +140,7 @@ class LoginPage:
         Button(self.OTP_window, text="Next",width=10,fg="black" ,height=1, command=self.verify_OTP).pack()
     
     def verify_OTP(self):
-        OTP1 = self.OTP_verify.get()
+        OTP1 = Hybird_decryption(self.OTP_verify.get())
         if OTP1 == str(self.actual_OTP):
             self.login_sucess()
         else:
@@ -231,6 +235,8 @@ class LoginPageRIFD:
         Label(self.window,text="Enter Details Below to Login!",bg="#c0ecc0", fg="black",
             width="300", height="2",font=("Calibri", 13)).pack(padx=20, pady=23 )
         Label(self.window, text="").pack()
+        
+        self.OTP_window = None
 
         self.username_verify = username
         self.password_verify = StringVar()
@@ -263,7 +269,6 @@ class LoginPageRIFD:
                 self.password_not_recognised()
         else:
             self.user_not_found()
-        self.username_login_entry.delete(0, END)
         self.password_login_entry.delete(0, END)
     
     def OTP(self, verify):
@@ -346,6 +351,10 @@ class LoginPageRIFD:
         self.login_success_screen.geometry("150x100")
         Label(self.login_success_screen, text="Login Success").pack()
         Button(self.login_success_screen, text="OK", command=self.delete_login_success).pack()
+        GPIO.setup(24,GPIO.OUT)
+        sleep(5)
+        GPIO.setup(24,GPIO.IN)
+        self.delete_login_success()
 
     def password_not_recognised(self):
         self.password_not_recog_screen = Toplevel(self.window)
@@ -364,13 +373,17 @@ class LoginPageRIFD:
     def delete_login_success(self):
         self.login_success_screen.destroy()
         self.OTP_window.destroy()
+        self.window.destroy()
 
     def delete_password_not_recognised(self):
         self.password_not_recog_screen.destroy()
-        self.OTP_window.destroy()
+        if self.OTP_window != None:
+            self.OTP_window.destroy()
+        self.window.destroy()
 
     def delete_user_not_found_screen(self):
         self.user_not_found_screen.destroy()
+        self.window.destroy()
 
 def page():
     window = Tk()
