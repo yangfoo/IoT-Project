@@ -7,7 +7,7 @@ import math
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 from time import sleep
-from encrypt_decrypt import *
+from LoginSystem.encrypt_decrypt import *
 
 class Main:
     def __init__(self, window):
@@ -290,7 +290,7 @@ class LoginPageRIFD:
         Button(self.OTP_window, text="Next",width=10,fg="black" ,height=1, command=self.verify_OTP).pack()
     
     def verify_OTP(self):
-        OTP1 = self.OTP_verify.get()
+        OTP1 = Hybird_decryption(self.OTP_verify.get())
         if OTP1 == str(self.actual_OTP):
             self.login_sucess()
         else:
